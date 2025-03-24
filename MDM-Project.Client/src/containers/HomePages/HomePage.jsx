@@ -6,6 +6,7 @@ import './HomePage.scss'
 import Header from '../HomePages/Header';
 import dropdown from '/img/caret-down.svg';
 import axios from 'axios';
+import banner from '../../assets/banner.png';
 
 const HomePage = () => {
     const [item, setItem] = useState({ kindOfStand: "", another: "another" });
@@ -238,7 +239,7 @@ const HomePage = () => {
                 <section className='main-layout'>
                     <div className='banner-search'>
                         <div className='homepage-banner'>
-                            <img src='https://storage.googleapis.com/futa-busline-web-cms-prod/Artboard_2_8_c5af86ae89/Artboard_2_8_c5af86ae89.png'/>
+                            <img src={banner}/>
                         </div>
 
                         <form className="Home">
