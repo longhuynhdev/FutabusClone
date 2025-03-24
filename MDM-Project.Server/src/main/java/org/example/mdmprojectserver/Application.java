@@ -14,8 +14,6 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
-import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
 
 
@@ -28,23 +26,20 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 
 @EnableJpaRepositories(
         basePackages = "org.example.mdmprojectserver.jpa.repository",
-        excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org\\.example\\.mdmprojectserver\\.(mongodb|neo4j|redis)\\.repository\\..*")
+        excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org\\.example\\.mdmprojectserver\\.(mongodb|redis)\\.repository\\..*")
 )
 
-@EnableRedisRepositories(
-        basePackages = "org.example.mdmprojectserver.redis.repository",
-        excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org\\.example\\.mdmprojectserver\\.(jpa|mongodb|neo4j)\\.repository\\..*")
-)
+//@EnableRedisRepositories(
+//        basePackages = "org.example.mdmprojectserver.redis.repository",
+//        excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org\\.example\\.mdmprojectserver\\.(jpa|mongodb)\\.repository\\..*")
+//)
 
 @EnableMongoRepositories(
         basePackages = "org.example.mdmprojectserver.mongodb.repository",
-        excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org\\.example\\.mdmprojectserver\\.(jpa|neo4j|redis)\\.repository\\..*")
+        excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org\\.example\\.mdmprojectserver\\.(jpa|redis)\\.repository\\..*")
 )
 
-@EnableNeo4jRepositories(
-        basePackages = "org.example.mdmprojectserver.neo4j.repository",
-        excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org\\.example\\.mdmprojectserver\\.(jpa|mongodb|redis)\\.repository\\..*")
-)
+
 
 @OpenAPIDefinition(info = @Info(title = "MDM Project API", version = "1.0", description = "MDM Project API"))
 public class Application implements CommandLineRunner {
