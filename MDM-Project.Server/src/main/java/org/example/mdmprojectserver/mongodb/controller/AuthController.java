@@ -59,25 +59,9 @@ public class AuthController {
         customer.setPhone(registerDto.getPhoneNumber());
         customer.setEmail(registerDto.getEmail());
         customer.setName(registerDto.getName());
+        customer.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+        customer.setRole("USER");
 
-        // Get the id of the customer
-        String customerId =  customerRepository.save(customer).getId();
-
-        //Create a new account
-        UserEntity user = new UserEntity();
-        user.setPhoneNumber(registerDto.getPhoneNumber());
-        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-        // Set the customer id to the user
-        user.setCustomerId(customerId);
-
-        Role roles = roleRepository.findByName("USER").get();
-        user.setRoles(Collections.singletonList(roles));
-
-        // Get the id of the user
-        int userEntityId = userRepository.save(user).getId();
-        // Set the user id to the customer
-        customer.setUserEntityId(Integer.toString(userEntityId));
-        // Update the customer
         customerRepository.save(customer);
 
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);

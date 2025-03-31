@@ -1,8 +1,7 @@
 package org.example.mdmprojectserver.jpa.security;
 
-import org.example.mdmprojectserver.jpa.model.Role;
-import org.example.mdmprojectserver.jpa.model.UserEntity;
-import org.example.mdmprojectserver.jpa.repository.UserRepository;
+import org.example.mdmprojectserver.mongodb.model.Customer;
+import org.example.mdmprojectserver.mongodb.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,27 +13,24 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private UserRepository userRepository;
+    private CustomerRepository customerRepository;
 
     @Autowired
-    public CustomUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public CustomUserDetailsService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByPhoneNumber(username)
+        Customer customer = customerRepository.findByPhone(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
-        return new User(userEntity.getPhoneNumber(), userEntity.getPassword(),mapRolesToAuthorities(userEntity.getRoles()));
+        return new User(customer.getPhone(), customer.getPassword(), mapRolesToAuthorities(customer.getRole()));
     }
 
-    private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
+    private Collection<GrantedAuthority> mapRolesToAuthorities(String role) {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role));
     }
 }
