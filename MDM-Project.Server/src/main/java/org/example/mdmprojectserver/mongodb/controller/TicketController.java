@@ -80,7 +80,7 @@ public class TicketController {
         if (optionalTicket.isPresent()) {
             Ticket ticket = optionalTicket.get();
             // Fetch Customer details using phoneNumber
-            Optional<Customer> optionalCustomer = customerRepository.findByPhoneNumber(phoneNumber);
+            Optional<Customer> optionalCustomer = customerRepository.findByPhone(phoneNumber);
 
             if (!optionalCustomer.isPresent()) {
                 return ResponseEntity.status(404).body("Customer not found");

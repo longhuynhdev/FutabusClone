@@ -1,4 +1,4 @@
-package org.example.mdmprojectserver.jpa.security;
+package org.example.mdmprojectserver.mongodb.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

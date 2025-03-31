@@ -11,7 +11,7 @@ public interface CustomerRepository extends MongoRepository<Customer,String> {
     Optional<Customer> findById(String s);
     Customer getCustomerById(String id);
 
-    @Query("{ 'phone' : ?0 }")
-    Optional<Customer> findByPhoneNumber(String phoneNumber);
+    //@Query("{ 'phone' : ?0 }")
+    Optional<Customer> findByPhone(String phone);
 
 }

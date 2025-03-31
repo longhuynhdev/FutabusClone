@@ -2,14 +2,10 @@ package org.example.mdmprojectserver.mongodb.controller;
 
 import org.example.mdmprojectserver.mongodb.dto.BusDto;
 import org.example.mdmprojectserver.mongodb.model.Bus;
-import org.example.mdmprojectserver.mongodb.model.Seat;
 import org.example.mdmprojectserver.mongodb.enums.BusType;
 import org.example.mdmprojectserver.mongodb.enums.SortType;
 import org.example.mdmprojectserver.mongodb.enums.TimeType;
 import org.example.mdmprojectserver.mongodb.repository.BusRepository;
-import org.example.mdmprojectserver.mongodb.repository.SeatRepository;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -29,10 +25,9 @@ import java.util.stream.Collectors;
 @RestController
 public class BusController {
     private final BusRepository busRepository;
-    private final SeatRepository seatRepository;
-    public BusController(BusRepository busRepository, SeatRepository seatRepository) {
+
+    public BusController(BusRepository busRepository) {
         this.busRepository = busRepository;
-        this.seatRepository = seatRepository;
     }
 
     @GetMapping("/")
@@ -100,23 +95,17 @@ public class BusController {
 
     @PostMapping("/")
     public ResponseEntity<?> newBus(@RequestBody BusDto newBusDto, BindingResult result) {
+
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body("Validation errors: " + result.getAllErrors());
         }
+
         //Format the date time to a specific format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm");
         LocalDateTime departureTime = LocalDateTime.parse(newBusDto.getDepartureTime(), formatter);
         LocalDateTime arrivalTime = LocalDateTime.parse(newBusDto.getArrivalTime(), formatter);
 
         Bus bus = new Bus(departureTime, newBusDto.getDepartureLocation(), arrivalTime, newBusDto.getArrivalLocation(), newBusDto.getFare(), newBusDto.getBoardingPoints(), newBusDto.getDroppingPoints(), newBusDto.getBusType());
-        seatRepository.saveAll(bus.getSeats());
-
-        Bus savedBus = this.busRepository.save(bus);
-
-        for (Seat seat : savedBus.getSeats()) {
-            seat.setBusId(savedBus.getId());
-            seatRepository.save(seat);
-        }
 
         return ResponseEntity.ok(this.busRepository.save(bus));
     }
@@ -136,14 +125,6 @@ public class BusController {
             LocalDateTime arrivalTime = LocalDateTime.parse(newBusDto.getArrivalTime(), formatter);
 
             Bus bus = new Bus(departureTime, newBusDto.getDepartureLocation(), arrivalTime, newBusDto.getArrivalLocation(), newBusDto.getFare(), newBusDto.getBoardingPoints(), newBusDto.getDroppingPoints(), newBusDto.getBusType());
-            seatRepository.saveAll(bus.getSeats());
-
-            Bus savedBus = this.busRepository.save(bus);
-
-            for (Seat seat : savedBus.getSeats()) {
-                seat.setBusId(savedBus.getId());
-                seatRepository.save(seat);
-            }
 
             savedBuses.add(this.busRepository.save(bus));
         }

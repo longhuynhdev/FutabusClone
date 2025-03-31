@@ -6,6 +6,7 @@ import './HomePage.scss'
 import Header from '../HomePages/Header';
 import dropdown from '/img/caret-down.svg';
 import axios from 'axios';
+import bannerImage from '../../assets/banner.png';
 
 const HomePage = () => {
     const [item, setItem] = useState({ kindOfStand: "", another: "another" });
@@ -238,7 +239,7 @@ const HomePage = () => {
                 <section className='main-layout'>
                     <div className='banner-search'>
                         <div className='homepage-banner'>
-                            <img src='https://storage.googleapis.com/futa-busline-web-cms-prod/Artboard_2_8_c5af86ae89/Artboard_2_8_c5af86ae89.png'/>
+                            <img src={bannerImage}/>
                         </div>
 
                         <form className="Home">
@@ -369,39 +370,7 @@ const HomePage = () => {
 
                     </div>
 
-                    {routeData ? (
-
-                    <div class="de-xuat">
-                        <h2> Tuyến phổ biến </h2>
-                        {routeData.map((route, index) => (
-                        <div key={index} className="ChuyenXe row">
-                            <div className="TGDi col-1" align="center">
-                                <h1>Điểm Đi</h1>
-                                <p>{route.startCity}</p>
-                            </div>
-
-                            <div className="DiChuyen col-1">
-                                <img src={'https://futabus.vn/images/icons/pickup.svg'}/>
-                                <p>----------</p>
-                                <p style={{ textAlign: 'center' }} id="tg-qd">{route.time} giờ<br /> {route.distance} km </p>
-                                <p>----------</p>
-                                <img src={'https://futabus.vn/images/icons/station.svg'}/>
-                            </div>
-
-                            <div className="TGDi col-1" align="center">
-                                <h1>Điểm đến</h1>
-                                <p>{route.endCity}</p>
-                            </div>
-                            <div className="col-1">
-                                <p style={{ textAlign: 'center' }} id="tg-qd"> Số người đã chọn<br/> {route.numOfPeople} </p>
-                            </div>
-                        </div>
-                        ))}
-                    </div>
-
-                    ) : (
-                        <p>Loading route data...</p>
-                    )}
+                    
 
                     {TimChuyen == 0 ? (
                         <></>

@@ -1,4 +1,4 @@
-package org.example.mdmprojectserver.jpa.security;
+package org.example.mdmprojectserver.mongodb.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

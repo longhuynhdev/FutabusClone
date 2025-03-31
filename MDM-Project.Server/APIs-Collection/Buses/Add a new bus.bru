@@ -5,14 +5,13 @@ meta {
 }
 
 post {
-  url: http://localhost:8080/api/buses/addBuses
+  url: http://localhost:8080/api/buses/
   body: json
   auth: inherit
 }
 
 body:json {
-  [
-    {
+  {
       "departureTime": "2025-03-24:20:00",
       "departureLocation": "Hồ Chí Minh",
       "arrivalTime": "2025-03-25:04:00",
@@ -26,6 +25,5 @@ body:json {
       ],
       "busType": "GHẾ",
       "status": "STILL_AVAILABLE"
-    }
-  ]
+  }
 }

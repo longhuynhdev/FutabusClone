@@ -1,4 +1,4 @@
-package org.example.mdmprojectserver.jpa.security;
+package org.example.mdmprojectserver.mongodb.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

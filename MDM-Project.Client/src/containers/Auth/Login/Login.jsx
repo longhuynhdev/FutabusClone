@@ -6,11 +6,19 @@ import { useAuth } from '../../../services/auth';
 import Header from '../../HomePages/Header';
 import axios from "axios";
 
+//Icon
+import emailIcon from '../../../assets/mail.svg';
+import nameIcon from '../../../assets/name.png';
+import passwordIcon from '../../../assets/password.svg';
+import phoneIcon from '../../../assets/phone.svg';
+import logoWithTextIcon from '../../../assets/logoText.svg';
+import TVCIcon from '../../../assets/TVC.svg';
+
 const Login = () => {
     const { isLoggedIn, login, logout } = useAuth();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        phoneNumber: '',
+        phone: '',
         password: ''
     });
 
@@ -27,10 +35,9 @@ const Login = () => {
         try {
             const response = await axios.post('http://localhost:8080/api/auth/login', formData);
             if (response.status === 200) {
-                // Save accessToken, customerId, and isLoggedIn to localStorage
+                // Save accessToken, customerId to localStorage
                 localStorage.setItem('accessToken', response.data.accessToken);
                 localStorage.setItem('customerId', response.data.customerId);
-                /* localStorage.setItem('isLoggedIn', true); */
                 navigate('/');
                 login();
             } else {
@@ -53,12 +60,12 @@ const Login = () => {
                         <div className='login-banner'>
                             <div className='slogan'>
                                 <div className='slogan-img'>
-                                    <img src='https://storage.googleapis.com/futa-busline-cms-dev/logo_Text_fd1a850bb9/logo_Text_fd1a850bb9.svg'/>
+                                    <img src={logoWithTextIcon}/>
                                 </div>
                             </div>
                             <div className='banner-content'>
                                 <div className='banner-img'>
-                                    <img src='https://storage.googleapis.com/futa-busline-cms-dev/TVC_00aa29ba5b/TVC_00aa29ba5b.svg'/>
+                                    <img src={TVCIcon}/>
                                 </div>
                             </div>
                         </div>
@@ -69,9 +76,9 @@ const Login = () => {
                                 <div className='login-form-content'>
                                     <form onSubmit={handleSubmit}>
                                         <div className='login-input-content'>
-                                            <img src='https://futabus.vn/images/login/phone.svg'/>
+                                            <img src={phoneIcon}/>
                                             <input type='text'
-                                                   name='phoneNumber'
+                                                   name='phone'
                                                 className='form-control' 
                                                 placeholder='Nhập số điện thoại'
                                                    value={formData.phoneNumber}
@@ -79,7 +86,7 @@ const Login = () => {
                                             />
                                         </div>
                                         <div className='login-input-content'>
-                                            <img src='https://futabus.vn/images/login/password.svg'/>
+                                            <img src={passwordIcon}/>
                                             <input type='password'
                                                    name='password'
                                                 className='form-control' 

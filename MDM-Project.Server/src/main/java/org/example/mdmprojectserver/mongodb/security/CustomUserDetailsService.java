@@ -1,4 +1,4 @@
-package org.example.mdmprojectserver.jpa.security;
+package org.example.mdmprojectserver.mongodb.security;
 
 import org.example.mdmprojectserver.mongodb.model.Customer;
 import org.example.mdmprojectserver.mongodb.repository.CustomerRepository;

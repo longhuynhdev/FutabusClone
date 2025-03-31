@@ -1,4 +1,4 @@
-package org.example.mdmprojectserver.jpa.dto;
+package org.example.mdmprojectserver.mongodb.dto;
 
 import lombok.Data;
 

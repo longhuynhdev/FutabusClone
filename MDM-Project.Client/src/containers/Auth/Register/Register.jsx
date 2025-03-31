@@ -2,16 +2,25 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Register.scss';
-
 import Header from '../../HomePages/Header';
+
+// Icon
+import emailIcon from '../../../assets/mail.svg';
+import nameIcon from '../../../assets/name.png';
+import passwordIcon from '../../../assets/password.svg';
+import phoneIcon from '../../../assets/phone.svg';
+import logoWithTextIcon from '../../../assets/logoText.svg';
+import TVCIcon from '../../../assets/TVC.svg';
+
 
 const Register = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        phoneNumber: '',
+        phone: '',
+        password: '',
         email: '',
         name: '',
-        password: ''
+        
     });
 
     const handleChange = (event) => {
@@ -27,6 +36,7 @@ const Register = () => {
 
         try {
             const response = await axios.post('http://localhost:8080/api/auth/register', formData);
+            console.log(formData);
             if (response.status === 200) {
                 alert('User registered successfully');
                 navigate('/login');
@@ -51,12 +61,12 @@ const Register = () => {
                         <div className='register-banner'>
                             <div className='slogan'>
                                 <div className='slogan-img'>
-                                    <img src='https://storage.googleapis.com/futa-busline-cms-dev/logo_Text_fd1a850bb9/logo_Text_fd1a850bb9.svg'/>
+                                    <img src={logoWithTextIcon}/>
                                 </div>
                             </div>
                             <div className='banner-content'>
                                 <div className='banner-img'>
-                                    <img src='https://storage.googleapis.com/futa-busline-cms-dev/TVC_00aa29ba5b/TVC_00aa29ba5b.svg'/>
+                                    <img src={TVCIcon}/>
                                 </div>
                             </div>
                         </div>
@@ -67,17 +77,17 @@ const Register = () => {
                                 <div className='register-form-content'>
                                     <form onSubmit={handleSubmit}>
                                         <div className='register-input-content'>
-                                            <img src='https://futabus.vn/images/login/phone.svg'/>
+                                            <img src={phoneIcon}/>
                                             <input type='text'
-                                                   name='phoneNumber'
+                                                   name='phone'
                                                    className='form-control'
                                                    placeholder='Nhập số điện thoại'
-                                                   value={formData.phoneNumber}
+                                                   value={formData.phone}
                                                    onChange={handleChange}
                                             />
                                         </div>
                                         <div className='register-input-content'>
-                                            <img src='https://futabus.vn/images/icons/mail_send.svg'
+                                            <img src={emailIcon}
                                                  style={{width: '48px', height: '37.6px'}}/>
                                             <input type='email'
                                                    name='email'
@@ -89,7 +99,7 @@ const Register = () => {
                                         </div>
                                         <div className='register-input-content'>
                                             <img
-                                                src='https://www.shareicon.net/data/128x128/2016/05/24/770136_man_512x512.png'
+                                                src={nameIcon}
                                                 style={{width: '48px', height: '37.6px'}}/>
                                             <input type='text'
                                                    name='name'
@@ -100,7 +110,7 @@ const Register = () => {
                                             />
                                         </div>
                                         <div className='register-input-content'>
-                                            <img src='https://futabus.vn/images/login/password.svg'/>
+                                            <img src={passwordIcon}/>
                                             <input type='password'
                                                    name='password'
                                                    className='form-control'

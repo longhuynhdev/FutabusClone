@@ -54,15 +54,6 @@ public class CustomerController {
         return ResponseEntity.ok(updatedCustomer);
     }
 
-    @PostMapping()
-    public ResponseEntity<?> newCustomer(@Valid @RequestBody CustomerDto newCustomerDto, BindingResult result) {
-        if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body("Validation errors: " + result.getAllErrors());
-        }
-        Customer customer = new Customer(newCustomerDto.getName(), newCustomerDto.getGender(), newCustomerDto.getEmail(),newCustomerDto.getPhone(), newCustomerDto.getAddress(), newCustomerDto.getJob());
-        return ResponseEntity.ok(customerRepository.save(customer));
-    }
-
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable String id) {
         customerRepository.deleteById(id);
